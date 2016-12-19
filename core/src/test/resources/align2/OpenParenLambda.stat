@@ -30,13 +30,14 @@ rule {
 }
 <<< tuples in spark
 private[ml] class IterativelyReweightedLeastSquares(
-    val reweightFunc: (Instance, WeightedLeastSquaresModel) => (Double, Double),
+    val reweightFunc: (Instance, WeightedLeastSquaresModel, DDDDDDDDDDD, EEEEEEEEEEE) => (Double, Double),
     val tol: Double)
 >>>
 private[ml] class IterativelyReweightedLeastSquares(
-    val reweightFunc: (Instance,
-                       WeightedLeastSquaresModel) => (Double, Double),
+    val reweightFunc: (Instance, WeightedLeastSquaresModel, DDDDDDDDDDD,
+                       EEEEEEEEEEE) => (Double, Double),
     val tol: Double)
+
 <<< Any foo
 {{
 val func = function.asInstanceOf[

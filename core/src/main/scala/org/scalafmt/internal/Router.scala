@@ -222,7 +222,14 @@ class Router(formatOps: FormatOps) {
             }) =>
         val close = matchingParentheses(hash(open))
         Seq(
-          Split(NoSplit, 0).withIndent(StateColumn, close, Left)
+          Split(NoSplit, 0)
+            .withOptimalToken(close)
+            .withPolicy(SingleLineBlock(close))
+            .withIndent(StateColumn, close, Left),
+          // fallback, bin pack parameters, opening a new search branch on
+          // each argument.
+          Split(NoSplit, 1)
+            .withIndent(StateColumn, close, Left)
         )
       case FormatToken(arrow @ RightArrow(), right, _)
           if statementStarts.contains(hash(right)) &&

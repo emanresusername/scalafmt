@@ -147,3 +147,21 @@ def foo(x: Int) = x match {
 >>>
 {
 }
+<<< migrate2hocon
+{{
+opt[File]("migrate2hocon")
+      .action((file, c, d, e, f, g) =>
+          c.copy(migrate =
+            Some(AbsoluteFile.fromFile(file, c.common.workingDirectory))))
+        .text("""migrate .scalafmt CLI style configuration to hocon style configuration in .scalafmt.conf""")
+}}
+>>>
+{
+  {
+    opt[File]("migrate2hocon")
+      .action((file, c, d, e, f, g) =>
+        c.copy(migrate =
+          Some(AbsoluteFile.fromFile(file, c.common.workingDirectory))))
+      .text("""migrate .scalafmt CLI style configuration to hocon style configuration in .scalafmt.conf""")
+  }
+}
