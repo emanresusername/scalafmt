@@ -214,10 +214,12 @@ class Router(formatOps: FormatOps) {
       // Term.Function
       case FormatToken(open @ LeftParen(), _, _)
           // Argument list for anonymous function
-          if !style.binPack.defnSite && (leftOwner match {
-            case _: Term.Function | _: Type.Function => true
-            case _ => false
-          }) =>
+          if !style.binPack.defnSite &&
+            style.align.openParenLambda &&
+            (leftOwner match {
+              case _: Term.Function | _: Type.Function => true
+              case _ => false
+            }) =>
         val close = matchingParentheses(hash(open))
         Seq(
           Split(NoSplit, 0).withIndent(StateColumn, close, Left)
@@ -416,9 +418,7 @@ class Router(formatOps: FormatOps) {
             .withIndent(extraIndent, right, Right)
         )
       case FormatToken(open @ (LeftParen() | LeftBracket()), right, between)
-          if style.binPack.defnSite && isDefnSite(leftOwner) ||
-            // TODO(olafur) generalize Term.Function
-            leftOwner.isInstanceOf[Term.Function] =>
+          if style.binPack.defnSite && isDefnSite(leftOwner) =>
         val close = matchingParentheses(hash(open))
         val isBracket = open.is[LeftBracket]
         val indent = Num(style.continuationIndent.defnSite)

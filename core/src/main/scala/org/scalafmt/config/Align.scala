@@ -7,6 +7,7 @@ import metaconfig.Reader
 case class Align(
     openParenCallSite: Boolean = true,
     openParenDefnSite: Boolean = true,
+    openParenLambda: Boolean = false,
     mixedOwners: Boolean = false,
     tokens: Set[AlignToken] = Set.empty[AlignToken],
     arrowEnumeratorGenerator: Boolean = false,
