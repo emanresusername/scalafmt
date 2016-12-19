@@ -40,5 +40,24 @@ forAll(table)(
            |${if (resCD) "" else "Content-Length: 6\n"}
            |${if (headReq) "" else "ENTITY"}""",
       close
-  )
-)
+  ))
+<<< don't force me
+val boss = system.actorOf(Props(new Actor {
+  override val supervisorStrategy = OneForOneStrategy() {
+    case e: IllegalStateException if e.getMessage == "expected" ⇒ SupervisorStrategy.Resume }
+  def receive = {
+    case p: TypedProps[_] ⇒
+      context.sender() ! TypedActor(context).typedActorOf(p)
+  }
+}))
+>>>
+val boss = system.actorOf(Props(new Actor {
+  override val supervisorStrategy = OneForOneStrategy() {
+    case e: IllegalStateException if e.getMessage == "expected" ⇒
+      SupervisorStrategy.Resume
+  }
+  def receive = {
+    case p: TypedProps[_] ⇒
+      context.sender() ! TypedActor(context).typedActorOf(p)
+  }
+}))

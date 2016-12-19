@@ -72,7 +72,7 @@ case class ScalafmtOptimizer(
     pruneSlowStates: Boolean = true,
     recurseOnBlocks: Boolean = true,
     forceConfigStyleOnOffset: Int = 150,
-    forceConfigStyleOnArgCount: Int = 0
+    forceConfigStyleOnArgCount: Int = 1
 )
 
 object ScalafmtOptimizer {
